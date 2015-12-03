@@ -1,11 +1,36 @@
-<script type="text/template" id="list-template>
-  <li class="circle">
-    <%= circle.title %>
-    <a href="/testLib" id="<%= circle._id %>" class="stationLink">Generate</a>
-    <%= circle.users %>
-  </li>
+<script type="text/template" id="headerName-template">
+  <div id="userName"><%= name %></div>
 </script>
 
+<script type="text/template" id="circlePrompt-template">
+  <% if (userCircles.length > 0) { %>
+    <h1>Select or <a id="createCircleLink" href="#">create a circle</a></h1>
+  <% } else { %>
+    <h1><a id="createCircleLink" href="#">create a circle</a></h1>
+  <% } %>
+</script>
 
-
-
+<script type="text/template" id="circle-template">
+    <% if (userCircles.length > 0) { %>
+    <% userCircles.forEach(function(circle){ %>
+      <div class="circle">
+        <div class="circleHeader">
+          <div class="circleTitle"><%= circle.title %></div>
+        </div>
+        <div data-indexNumber="<%= circle._id %>" class="playButton stationLink"><img src="https://i.imgur.com/ODkyHmb.png"></div>
+        <div class="circleMembers">
+          <% circle.users.forEach(function(user){ %>
+            <div class="circleMember">
+              <div class="circleMemberImage"><img src="https://i.imgur.com/NRhYDQD.png"></div>
+              <div class="circleMemberName"><%= user.spotifyId %>
+                <div>Name</div>
+              </div>
+              <div class="circleMemberDelete"><img src="https://i.imgur.com/OwlzNxO.png"></div>
+            </div>
+          <% }) %>
+       </div>
+        <div data-indexNumber="<%= circle._id %>" class="deleteCircle"><img src="https://i.imgur.com/OwlzNxO.png"><div>DELETE CIRCLE</div></div>
+      </div>
+    <% }) %>
+  <% } %>
+</script>
