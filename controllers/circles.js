@@ -19,9 +19,7 @@ var createCircle = function(req, res, done) {
       });
       callback(null, 'one');
     },
-    // "userid" {_id: 'userid'}
-    function findCircleUsers(callback){
-      // eval(locus);
+    function (callback){
       circleUsersString.forEach(function(userString){
         User.findOne({ 'spotifyId': userString}, function(err, foundUser) {
           if (err) return done(err);
@@ -29,29 +27,28 @@ var createCircle = function(req, res, done) {
             circle.users.push(foundUser._id);
             circle.save(function(err, circle){
               if (err) return done(err);
-               // res.json(circle);
+              callback(null, 'two');
             });
           } else {
-            // eval(locus);
-            // req.body.users.forEach(function(user))
             var newUser = new User({
               spotifyId: userString,
               circles: []
             });
-            circle.users.push(newUser._id);
-            circle.save(function(err, circle){
-              if (err) return done(err);
-             // res.json(circle);
-            });
-            newUser.save(function(err, user) {
-              if (err) return done(err);
-            });
+            if (newUser.circles) {
+              circle.users.push(newUser._id);
+              circle.save(function(err, circle){
+                if (err) return done(err);
+              });
+              newUser.save(function(err, user) {
+                if (err) return done(err);
+                callback(null, 'two');
+              });
+            }
           }
         });
       });
-      callback(null, 'two');
     },
-    function assignCircles(callback){
+    function (callback){
       var array = circle.users
       async.each(array, function(user){
         User.findOne({ '_id': user }, function(err, user) {
@@ -62,14 +59,16 @@ var createCircle = function(req, res, done) {
               if (userCircle._id === circle._id) {
                 user.save(function(err){
                   if (err) return done(err);
-                 // res.json(user);
+                  callback(null, 'three');
                 });
               }
             });
           }
         });
       });
-      callback(null, 'three');
+    },
+    function (callback) {
+      res.send(circle);
     },
     function(err, results){
       if (err) {
