@@ -92,14 +92,14 @@ var stateKey = 'spotify_auth_state';
 
 
 router.get('/auth/spotify',
-  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true }),
+  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'], showDialog: true }),
   function(req, res){
    // The request will be redirected to spotify for authentication, so this
    // function will not be called.
 });
 
 router.get('/login',
-  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private']}),
+  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private']}),
   function(req, res){
    // The request will be redirected to spotify for authentication, so this
    // function will not be called.

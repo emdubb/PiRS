@@ -451,3 +451,17 @@ button:hover {
   width: 380px;
 }
 
+#playlistDest {
+  display: flex;
+}
+
+iframe {
+  /*width: 100vw;*/
+  flex-grow: 3;
+}
+
+.savePlaylist {
+  flex-grow: 1;
+  height: 100px;
+  background: red;
+}

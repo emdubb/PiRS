@@ -139,7 +139,7 @@ $(document).ready(function() {
 
         $("iframe").remove()
 
-        $('main').append('<iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:' + data + '"height="80" frameborder="0" allowtransparency="true"></iframe>');
+        $('main').append('<div id="playlistDest"><iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:' + data + '"height="80" frameborder="0" allowtransparency="true"></iframe><div class="savePlaylist">save<br>playlist</div></div>');
         console.log(targettedPlayButton.src);
         function respondify() {
           $('iframe[src*="embed.spotify.com"]').each( function() {
