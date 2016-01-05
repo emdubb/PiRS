@@ -460,8 +460,9 @@ iframe {
   flex-grow: 3;
 }
 
-.savePlaylist {
+#savePlaylist {
   flex-grow: 1;
   height: 100px;
-  background: red;
+  background: green;
+  cursor: pointer;
 }

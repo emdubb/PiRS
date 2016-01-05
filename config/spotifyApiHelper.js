@@ -8,10 +8,28 @@ function buildPlaylistUri(userId) {
 function buildTracklistUri(playlistId, userId) {
   return `https:\/\/api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`;
 }
+// function buildSavePlaylistUri(userId) {
+//   return `https:\/\/api.spotify.com/v1/users/${userId}/playlists`
+// }
 module.exports = {
   buildPlaylistUri: buildPlaylistUri,
   buildTracklistUri: buildTracklistUri,
+  postPlaylist: function(userId, token, callback) {
+    var options = {
+      url: buildPlaylistUri(userId),
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      json: true
+    };
+    request(options, function(err, response, playlist) {
+      eval(locus)
+      callback(playlist);
+    });
+  },
   getPlaylists: function(userId, token, callback) {
+    // console.log(callback.toString());
     var options = {
       url: buildPlaylistUri(userId),
       headers: {
@@ -77,9 +95,9 @@ module.exports = {
           });
         }); // each user
         Promise.all(circlePromises).then(function(libraries) {
-          console.log('**********************************');
-          console.log(libraries);
-          console.log('**********************************');
+          // console.log('**********************************');
+          // console.log(libraries);
+          // console.log('**********************************');
           resolve(libraries);
         }, function(thang) {
           console.log(thang);
@@ -91,11 +109,8 @@ module.exports = {
     self = this;
     var p1 = new Promise(function(resolve, reject) {
       var libraryPromise = self.buildLibraries(circleId, accessToken);
-      // console.log(libraryPromise);
-      // setTimeout(function(){console.log(libraryPromise)}, 2000);
       libraryPromise.then(function(libraries) {
         var pullTracksResult = pullTracks(libraries);
-        // console.log(libraries, pullTracksResult);
         resolve(pullTracksResult);
       }, function(thing) {
         console.log(thing);

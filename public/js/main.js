@@ -127,7 +127,8 @@ $(document).ready(function() {
     targettedPlayButton = evt.target;
     targettedPlayButton.src = "http://emdubb.co/ring-alt.svg";
     var id = $(this).attr('data-indexNumber');
-    console.log(id);
+    var title = $(this).attr('data-title');
+    console.log(title);
     $.ajax({
       type: 'GET',
       url: '/testLib',
@@ -137,10 +138,12 @@ $(document).ready(function() {
       success: function(data) {
         console.log(data);
 
-        $("iframe").remove()
+        $("#playlistDest").remove()
 
-        $('main').append('<div id="playlistDest"><iframe src="https://embed.spotify.com/?uri=spotify:trackset:PREFEREDTITLE:' + data + '"height="80" frameborder="0" allowtransparency="true"></iframe><div class="savePlaylist">save<br>playlist</div></div>');
+        $('main').append('<div id="playlistDest"><iframe src="https://embed.spotify.com/?uri=spotify:trackset:'+ title +':' + data + '"height="80" frameborder="0" allowtransparency="true"></iframe><button id="savePlaylist">save<br>playlist</button></div>');
         console.log(targettedPlayButton.src);
+        addClickToSave();
+
         function respondify() {
           $('iframe[src*="embed.spotify.com"]').each( function() {
             $(this).css('width',$(this).parent(3).css('width'));
@@ -158,6 +161,32 @@ $(document).ready(function() {
       }
     });
   });
+
+  function addClickToSave() {
+    $("#savePlaylist").on('click', function(e){
+      $.ajax({
+        type: 'POST',
+        url: '/postPlaylist',
+        success: function(data) {
+          console.log('yeppp');
+        },
+        error: function(err) {
+          console.log(err);
+      }
+    });
+  });
+  }
+
+  // $("#savePlaylist").on('click', function(e){
+
+  //   console.log("batters");
+  //   console.log(user);
+  //   // var id = $(this).attr('data-indexNumber');
+  //   // console.log(id);
+  // });
+
+  // $("#playlistDest").css("background", "blue");
+  // console.log($("#playlistDest"));
 
   $('#circlesList').delegate('.deleteCircle', 'click', function(evt){
     var id = $(this).attr('data-indexNumber');

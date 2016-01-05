@@ -39,6 +39,18 @@ router.get('/testLib', isLoggedIn, function(req,res) {
         res.redirect('/')
       });
 });
+router.post('/postPlaylist', isLoggedIn, function(req,res) {
+  spotify.postPlaylist(req.user.spotifyId, req.user.accessToken).
+    then(function(playlist) {
+      res.json(playlist);
+      console.log(playlist);
+    }).
+    then(function() {
+      console.log('ay bae')
+      console.log()
+      res.redirect('/')
+    })
+});
 
 router.get('/libraries', isLoggedIn, function(req, res) {
   var spotify = require('./spotifyApiHelper');
