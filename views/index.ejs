@@ -12,7 +12,7 @@
     <div id="topHeader" class="header">
       <div id="welcome">
         <script type="text/template" id="headerName-template">
-          <div id="userName"><p>user name<%= name %></p></div>
+          <div id="userName"><p><%= user.spotifyId %></p></div>
         </script>
       </div>
       <div id="logoContainer"><img id="logo" src="https://i.imgur.com/E5WguAz.png"></div>
@@ -105,13 +105,21 @@
 
   <script>
     var name        = '';
+    var user;
+    var displayName;
     var userCircles = [];
     var circleId;
+    var Circle;
 
     <$ if (user) { $>
+      user = JSON.parse('<$- JSON.stringify(user) $>');
+      console.log(user);
       name = '<$- user.displayName $>';
       userCircles = JSON.parse('<$- JSON.stringify(user.circles) $>');
       console.log(userCircles.length);
+      userCircles.forEach(function(circle) {
+        console.log(circle);
+      });
     <$ } $>
   </script>
 
