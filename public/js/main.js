@@ -2,10 +2,7 @@ console.log('main.js loaded!');
 
 $(document).ready(function() {
 
-  var headerName   = _.template($('#headerName-template').html()),
-      circlePrompt   = _.template($('#circlePrompt-template').html()),
-      circle   = _.template($('#circle-template').html()),
-      $headerDestination  = $('#welcome'),
+  var $headerDestination  = $('#welcome'),
       $promptDestination  = $('#circlePrompt'),
       $circleDestination  = $('#circlesList'),
       friendsToAdd = [],
@@ -16,9 +13,9 @@ $(document).ready(function() {
   // =============Templating=============
   // ====================================
 
-  $headerDestination.append(headerName);
-  $promptDestination.append(circlePrompt);
-  $circleDestination.append(circle);
+  // $headerDestination.append(headerName);
+  // $promptDestination.append(circlePrompt);
+  // $circleDestination.append(circle);
   function circleView(){
 
   }
@@ -26,6 +23,9 @@ $(document).ready(function() {
   // ================Main================
   // ====================================
 
+  // (function populateUserCircles() {
+
+  // })();
 
   function buildUri(nameInput) {
       var baseUri = 'https://api.spotify.com/v1/users/';
@@ -117,7 +117,7 @@ $(document).ready(function() {
         console.log(errorThrown);
       }
     });
-      render();
+      // render();
   });
 
 
