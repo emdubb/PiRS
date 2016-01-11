@@ -83,6 +83,14 @@ h1 {
   top: 12vh;
   border-radius: 6px;
   box-shadow: 0 0 1.2vw #171717;
+  color: #171717;
+  font-size: 20px;
+  text-align: center
+}
+
+#openSpotifyButton {
+  margin-top: 50px;
+  width: 50%;
 }
 
 .menuItem {
@@ -468,4 +476,8 @@ iframe {
   cursor: pointer;
   padding: 0;
   margin: 0;
+}
+
+#savePlaylist:hover {
+  background: #1e4761;
 }

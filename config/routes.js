@@ -39,9 +39,11 @@ router.get('/testLib', isLoggedIn, function(req,res) {
         res.redirect('/')
       });
 });
-router.post('/postPlaylist', isLoggedIn, function(req,res) {
-  spotify.postPlaylist(req.user.spotifyId, req.user.accessToken).
+router.get('/postPlaylist', isLoggedIn, function(req,res) {
+  // eval(locus);
+  spotify.savePlaylist(req.user.spotifyId, req.user.accessToken, req.query.title, req.query.tracks).
     then(function(playlist) {
+      console.log("squish");
       res.json(playlist);
       console.log(playlist);
     }).

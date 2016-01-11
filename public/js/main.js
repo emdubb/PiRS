@@ -140,7 +140,10 @@ $(document).ready(function() {
 
         $("#playlistDest").remove()
 
-        $('main').append('<div id="playlistDest"><iframe src="https://embed.spotify.com/?uri=spotify:trackset:'+ title +':' + data + '"height="80" frameborder="0" allowtransparency="true"></iframe><button id="savePlaylist">save<br>playlist</button></div>');
+        $('main').append('<div id="playlistDest"><iframe src="https://embed.spotify.com/?uri=spotify:trackset:'+ title +':' + data + '"height="80" frameborder="0" allowtransparency="true"></iframe><button id="savePlaylist" data-title="' + title + '" data-trackids="' + data + '">save<br>playlist</button></div>');
+
+        // SAVE IFRAME TO LOCAL STORAGE!!!
+
         console.log(targettedPlayButton.src);
         addClickToSave();
 
@@ -164,9 +167,19 @@ $(document).ready(function() {
 
   function addClickToSave() {
     $("#savePlaylist").on('click', function(e){
+
+      var playlistName = $(this).attr('data-title');
+
+      var modalHtml = '<strong>Playlist "' + $(this).attr('data-title') + '" saved to Spotify!</strong><br>(you might need to restart Spotify)<br><a href="spotify:playlist:'+ playlistName +' id="openSpotifyButton">Open Spotify</a>';
+      showModal(modalHtml);
+
       $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: '/postPlaylist',
+        data: {
+          title: playlistName,
+          tracks: parseTrackIDs($(this).attr('data-trackids'))
+        },
         success: function(data) {
           console.log('yeppp');
         },
@@ -177,6 +190,14 @@ $(document).ready(function() {
   });
   }
 
+  function parseTrackIDs(tracks) {
+    var trackSplits = tracks.split(",");
+    var trackCats = trackSplits.map(function(track) {
+      return("spotify:track:" + track)
+    });
+    console.log(trackCats)
+    return trackCats
+  }
   // $("#savePlaylist").on('click', function(e){
 
   //   console.log("batters");
@@ -270,8 +291,9 @@ $(document).ready(function() {
     });
   });
 
-  var showModal = function() {
+  var showModal = function(HTML) {
     $("#modal").fadeIn(300);
+    $("#modal").html(HTML)
   };
 
   $("#logo").on("click", function() {

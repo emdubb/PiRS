@@ -8,28 +8,40 @@ function buildPlaylistUri(userId) {
 function buildTracklistUri(playlistId, userId) {
   return `https:\/\/api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`;
 }
-// function buildSavePlaylistUri(userId) {
-//   return `https:\/\/api.spotify.com/v1/users/${userId}/playlists`
-// }
+
 module.exports = {
   buildPlaylistUri: buildPlaylistUri,
   buildTracklistUri: buildTracklistUri,
-  postPlaylist: function(userId, token, callback) {
+  postPlaylist: function(userId, token, title, callback) {
     var options = {
+      method: 'POST',
       url: buildPlaylistUri(userId),
       headers: {
         "Accept": "application/json",
         "Authorization": "Bearer " + token
       },
-      json: true
+      json: {"name": title}
     };
     request(options, function(err, response, playlist) {
-      eval(locus)
       callback(playlist);
     });
   },
+  postTracks: function(playlistId, userId, token, tracks, callback) {
+    var options = {
+      method: 'POST',
+      url: buildTracklistUri(playlistId, userId),
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      json: {"uris": tracks}
+    };
+    request(options, function(err, response, tracks) {
+      callback(tracks);
+    });
+  },
   getPlaylists: function(userId, token, callback) {
-    // console.log(callback.toString());
+    console.log(callback.toString());
     var options = {
       url: buildPlaylistUri(userId),
       headers: {
@@ -55,12 +67,21 @@ module.exports = {
       callback(tracklist);
     });
   },
+  savePlaylist: function(userId, accessToken, title, tracks) {
+
+    var self = this;
+    self.postPlaylist(userId, accessToken, title, function(playlist) {
+      self.postTracks(playlist.id, userId, accessToken, tracks, function(tracks) {
+        if (tracks.snapshot_id) {return tracks}
+      })
+
+    });
+  },
   buildLibraries: function(circleId, accessToken) {
     var self = this;
     var iter = 0;
     return new Promise(function(resolve, reject) {
       Circle.findById(circleId).populate('users').exec(function(err, circle) {
-        // eval(locus);
         var circlePromises = circle.users.map(function(user){
           var userLib = {
             name: user.displayName,
@@ -122,6 +143,7 @@ module.exports = {
       };
      var masterPlaylist = [];
           iter = 0;
+
           for (var i = 0; i < 10; i++) {
             for (var x = 0; x < userLibs.length; x++) {
               var newIndex = Math.floor(Math.random()*userLibs[x].tracks.length);
