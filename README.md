@@ -20,15 +20,15 @@ Simply log in with your Spotify Account, add your friends, and we will generate 
 
 ###Technologies Used
 
-*HTML
-*CSS
-*JavaScript/jQuery
-*Node.js
-*Express
-*Passport
-*MongoDB/MongoLab
-*Spotify API
-*Heroku
+* HTML
+* CSS
+* JavaScript/jQuery
+* Node.js
+* Express
+* Passport
+* MongoDB/MongoLab
+* Spotify API
+* Heroku
 
 ![JSNode JQuery & Js Express](https://i.imgur.com/W7UeOHv.png) 
 
@@ -66,11 +66,9 @@ To run the application locally you will need to:
     * passport
     * passport-spotify
 * Create a .env with the client_id and client_secret
-​
-​
-​
-##RESTFull API
 
+
+##RESTFull API
 
  HTTP Verb  | Endpoint                                | Access    
 :----------:|-----------------------------------------|:---------------:
