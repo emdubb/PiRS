@@ -40,10 +40,9 @@ router.get('/', welcomeController.index);
 
 // =============API Routes=============
 // ====================================
-router.get('/api/circles/index', circlesController.index);
-router.get('/indexCircle/:id', apiController.showCircle);
-router.get('/circleUsers/:id', isLoggedIn, apiController.displayCircleUsers);
-router.get('/indexUser', isLoggedIn, apiController.indexUser);
+router.get('/api/circles', isLoggedIn, circlesController.index);
+router.get('/api/circles/:id', isLoggedIn, circlesController.showCircle);
+router.get('/api/users', isLoggedIn, apiController.indexUser);
 router.get('/api/me', usersController.currentUser);
 router.get('/api/users/:id/circles', usersController.userCircles);
 
