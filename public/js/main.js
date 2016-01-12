@@ -43,7 +43,48 @@ $(document).ready(function() {
       },
       success: function(data) {
         console.log(data);
-        circlesList.html("dummy text")
+        circlesList.html("")
+        data.circles.forEach(function(circle) {
+          circlesList.append(
+            // "<p>" + circle.title + "</p>"
+
+            '<div class="circle"><div class="circleHeader"><div class="circleTitle"><p>' + circle.title + '<p></div></div><div data-indexNumber="<%= circle._id %>" data-title="<%= circle.title %>" class="playButton stationLink"><img src="https://i.imgur.com/ODkyHmb.png"></div>'
+
+
+            //   <% if (userCircles.length > 0) { %>
+            //   <% userCircles.forEach(function(circle){ %>
+            //     <div class="circle">
+            //       <div class="circleHeader">
+            //         <div class="circleTitle"><p><%= circle.title %><p></div>
+            //       </div>
+            //       <div data-indexNumber="<%= circle._id %>" data-title="<%= circle.title %>" class="playButton stationLink"><img src="https://i.imgur.com/ODkyHmb.png"></div>
+            //       <div class="circleMembers">
+            //         <% circle.users.forEach(function(user){ %>
+            //           <div class="circleMember">
+            //             <div class="circleMemberImage"><img src="https://i.imgur.com/NRhYDQD.png"></div>
+            //           </div>
+            //         <% }) %>
+            //       </div>
+            //       <div class="circleMembersExpanded">
+            //         <% circle.users.forEach(function(user){ %>
+            //           <div class="circleMemberExpanded">
+            //             <div class="circleMemberImage"><img src="https://i.imgur.com/NRhYDQD.png"></div>
+            //             <div class="circleMemberName">Name<%= user.spotifyId %></div>
+            //             <div class="circleMemberDelete"><img src="https://i.imgur.com/OwlzNxO.png"></div>
+            //           </div>
+            //         <% }) %>
+            //         <div data-indexNumber="<%= circle._id %>" class="deleteCircle">
+            //           <img class="deleteX" src="https://i.imgur.com/OwlzNxO.png">
+            //           <div class="deleteText">DELETE CIRCLE</div>
+            //         </div>
+            //       </div>
+            //     </div>
+            //   <% }) %>
+            // <% } %>
+
+
+          )
+        })
       }
     })
 
@@ -53,6 +94,8 @@ $(document).ready(function() {
     // -  iterate over circles array, appending
     //     each as an element to circlesArea
   }
+
+test = "test";
 
   populateCircles();
 
