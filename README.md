@@ -74,14 +74,17 @@ To run the application locally you will need to:
 
  HTTP Verb  | Endpoint                                | Access    
 :----------:|-----------------------------------------|:---------------:
- `GET`      | [`/api/circles/index`](#circleIndex)    | 
+ `GET`      | [`/api/circles`](#circleIndex)          | login required
+ `GET`      | [`/api/circles/:id`](#showCircle)       | login required
+ `GET`      | [`/api/users`](#userIndex)              | login required
+ `GET`      | [`/api/me`](#currentUser)               | login required
 
 <a name="circleIndex"></a>
-###Show Circles
+###Show All Circles
 
 **Endpoint**
 
-```GET http://pirs.fm/api/circles/index```
+```GET http://pirs.fm/api/circles```
 
 **Response Format**
 
@@ -89,7 +92,7 @@ On success, the HTTP status code in the response header is 200 OK and the respon
 
 **Example**
 
-```GET http://pirs.fm/api/circles/index```
+```GET http://pirs.fm/api/circles```
 ```
 [
   {
@@ -115,13 +118,97 @@ On success, the HTTP status code in the response header is 200 OK and the respon
 ]
 ```
 
-Method | Parameters | Description | Exposed
--------------|------|-----------|-------
-`indexCircle` | `/indexCircle` | displays all circles in the database | Yes
-`showCircle` | `/indexCircle/:id` | finds a circle by an id | Yes
-`indexUser` | `/indexUser` | displays all users in the database | No
-`displayCircleUsers` | `/circleUsers/:id` | displays all users for a circle id | No
+<a name="showCircle"></a>
+###Show Circle
 
+**Endpoint**
+
+```GET http://pirs.fm/api/circles/:id```
+
+**Response Format**
+
+On success, the HTTP status code in the response header is 200 OK and the response body contains a a circle in JSON format. On error, the header status code is an error code and the response body contains an error message.
+
+**Example**
+
+```GET http://pirs.fm/api/circles/56932544720a7022242608fe```
+```
+{
+  _id:     "56932544720a7022242608fe",
+  creator: "56932522720a7022242608fd",
+  title:   "Boom Squad",
+  users:   ["56932522720a7022242608fd",
+            "56932544720a702224260900",
+            "56932544720a7022242608ff"
+           ],
+  created: "2016-01-11T03:45:08.295Z"
+}
+```
+
+<a name="userIndex"></a>
+###Show All Users
+
+**Endpoint**
+
+```GET http://pirs.fm/api/users```
+
+**Response Format**
+
+On success, the HTTP status code in the response header is 200 OK and the response body contains a a all users in the database in JSON format. On error, the header status code is an error code and the response body contains an error message.
+
+**Example**
+
+```GET http://pirs.fm/api/users```
+```
+{
+  _id:          "569473bd33543f532c5b5120",
+  displayName:  "Jane Jones",
+  email:        "example@email.com",
+  spotifyId:    "maddawg234"
+  profileImage: "https://i.imgur.com/N78DGH.png",
+  accessToken:  "BQCzS5NpP2ZiEXMmglDZ6Nk5BdQqaWiCM6rgdky8dpNmo",
+  circles:      ["569473bd33543f532c5b511f"],
+  created:      "2016-01-12T03:32:13.402Z"
+},
+{
+  _id:          "56932522720a7022242608fd",
+  displayName:  "John Smith",
+  email:        "email@gmail.com",
+  spotifyId:    "swizzle",
+  profileImage: "https://i.imgur.com/NRhYDQD.png",
+  accessToken:  "BQC-C29nYBaSByeIVi61WQ0aJ_PPceLiaAfAvnWwF0mO",
+  circles:      ["56932544720a7022242608fe",
+                 "569473bd33543f532c5b511f"
+                ],
+  created:      "2016-01-11T03:44:34.792Z"
+}
+```
+<a name="currentUser"></a>
+###Show Current User
+
+**Endpoint**
+
+```GET http://pirs.fm/api/me```
+
+**Response Format**
+
+On success, the HTTP status code in the response header is 200 OK and the response body contains all of the current users information in JSON format. On error, the header status code is an error code and the response body contains an error message.
+
+**Example**
+
+```GET http://pirs.fm/api/me```
+```
+{
+  _id:          "569473bd33543f532c5b5120",
+  displayName:  "Jane Jones",
+  email:        "example@email.com",
+  spotifyId:    "maddawg234"
+  profileImage: "https://i.imgur.com/N78DGH.png",
+  accessToken:  "BQCzS5NpP2ZiEXMmglDZ6Nk5BdQqaWiCM6rgdky8dpNmo",
+  circles:      ["569473bd33543f532c5b511f"],
+  created:      "2016-01-12T03:32:13.402Z"
+}
+```
 
 <a name="model"></a>​
 ### Data Models

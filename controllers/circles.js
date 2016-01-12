@@ -45,6 +45,17 @@ var createCircle = function(req, res, done) {
     });
 };
 
+var showCircle = function(req, res){
+  var id = req.params.id;
+  Circle.findById(id, function(err, circle){
+    console.log("GOT TO THIS");
+    if (err) {
+      res.send(err);
+    }
+    res.json(circle);
+  });
+};
+
 var updateCircle = function(req, res) {
     var circle = api.displayCircleUsers(req, res);
 };
@@ -95,6 +106,7 @@ var destroyCircle = function(req, res) {
 module.exports = {
   index: index,
   createCircle: createCircle,
+  showCircle: showCircle,
   updateCircle: updateCircle,
   destroyCircle: destroyCircle
 }
