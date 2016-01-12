@@ -16,28 +16,6 @@ var spotify           = require('../config/spotifyApiHelper');
 // ====================================
 router.get('/', welcomeController.index);
 
-
-
-// router.get('/api/users', usersController.index);
-// router.post('/api/users/:id', usersController.createUser);
-// router.get('/api/users/:id', usersController.showUser);
-// router.patch('/api/users/:id', usersController.updateUser);
-// router.delete('/api/users/:id', usersController.destroyUser);
-// router.get('/api/me', usersController.currentUser);
-
-// router.get('/api/circles', circlesController.index);
-// router.post('/api/circles/:id', circlesController.createCircle);
-// router.get('/api/circles/:id', circlesController.showCircle);
-// router.patch('/api/circles/:id', circlesController.updateCircle);
-// router.delete('/api/circles/:id', circlesController.destroyCircle);
-// router.get('/indexCircle', apiController.indexCircle);
-// router.get('/indexCircle/:id', apiController.showCircle);
-// router.get('/circleUsers/:id', isLoggedIn, apiController.displayCircleUsers);
-// router.get('/indexUser', isLoggedIn, apiController.indexUser);
-
-
-
-
 // =============API Routes=============
 // ====================================
 router.get('/api/circles', isLoggedIn, circlesController.index);
@@ -90,44 +68,6 @@ router.get('/libraries', isLoggedIn, function(req, res) {
 
 // ============Spotify Login===========
 // ====================================
-var generateRandomString = function(length) {
-    var text = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (var i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
-};
-
-var stateKey = 'spotify_auth_state';
-
-
-  // router.get('/', function(req,res){
-  //   res.render('index', { title: "WELCOME TO BOOMSQUAD!"});
-
-  // });
-
-// router.get('/login',
-//   passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private']});
-//      // The request will be redirected to spotify for authentication, so this
-//      // function will not be called.
-
-//     // var state = generateRandomString(16);
-//     // res.cookie(stateKey, state);
-
-//     // // your application requests authorization
-//     // var scope = 'user-read-private user-read-email';
-//     // res.redirect('https://accounts.spotify.com/authorize?' +
-//     //   querystring.stringify({
-//     //     response_type: 'code',
-//     //     client_id: process.env.CLIENT_ID,
-//     //     scope: scope,
-//     //     redirect_uri: 'https://piradio.herokuapp.com/callback',
-//     //     state: state
-//     //   }));
-// });
-
 
 router.get('/auth/spotify',
   passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private', 'playlist-modify-public', 'playlist-modify-private'], showDialog: true }),
