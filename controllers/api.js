@@ -4,12 +4,6 @@ var spotify = require('../config/spotifyApiHelper');
 var locus   = require('locus');
 var async   = require('async');
 
-var indexCircle = function(req, res) {
-  Circle.find({}, function(err, records) {
-    res.json(records);
-  });
-};
-
 var showCircle = function(req, res){
   var id = req.params.id;
   Circle.findById(id, function(err, circle){
@@ -37,7 +31,6 @@ var displayCircleUsers = function(req, res) {
 
 
 module.exports = {
-  indexCircle: indexCircle,
   showCircle: showCircle,
   indexUser: indexUser,
   displayCircleUsers: displayCircleUsers

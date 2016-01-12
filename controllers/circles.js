@@ -14,6 +14,12 @@ var debugAs = function(additional) {
 // var locus   = require('locus');
 // var async   = require('async');
 
+var index = function(req, res) {
+  Circle.find({}, function(err, records) {
+    res.json(records);
+  });
+};
+
 var createCircle = function(req, res, done) {
   var circleUsersSpotifyIds = JSON.parse(req.body.users);
   // eval(locus);
@@ -87,6 +93,7 @@ var destroyCircle = function(req, res) {
 };
 
 module.exports = {
+  index: index,
   createCircle: createCircle,
   updateCircle: updateCircle,
   destroyCircle: destroyCircle
