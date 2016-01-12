@@ -78,7 +78,6 @@
 
     <$ if (user) { $>
       user = JSON.parse('<$- JSON.stringify(user) $>');
-      console.log(user);
       name = '<$- user.displayName $>';
       userCircles = JSON.parse('<$- JSON.stringify(user.circles) $>');
       console.log(userCircles.length);

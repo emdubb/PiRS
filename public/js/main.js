@@ -23,9 +23,38 @@ $(document).ready(function() {
   // ================Main================
   // ====================================
 
-  // (function populateUserCircles() {
+  function populateCircles() {
+    var circlesList = $("#circlesList");
 
-  // })();
+    // -  circlesArea.html("loading circles...")
+
+    circlesList.html("loading circles...")
+
+    // -  Ajax call to get all of user's circles
+
+    $.ajax({
+      type: 'GET',
+      url: '/api/users/' + user._id + '/circles',
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR.status);
+        console.log(textStatus);
+        console.log(errorThrown);
+        circlesList.html("error loading circles")
+      },
+      success: function(data) {
+        console.log(data);
+        circlesList.html("dummy text")
+      }
+    })
+
+    // -  hit the circles with .populate() and
+    //     push them into a userCircles array
+    // -  circlesArea.html("")
+    // -  iterate over circles array, appending
+    //     each as an element to circlesArea
+  }
+
+  populateCircles();
 
   function buildUri(nameInput) {
       var baseUri = 'https://api.spotify.com/v1/users/';

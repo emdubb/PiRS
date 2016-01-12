@@ -16,7 +16,7 @@ var debugAs = function(additional) {
 
 var createCircle = function(req, res, done) {
   var circleUsersSpotifyIds = JSON.parse(req.body.users);
-  eval(locus);
+  // eval(locus);
   // add the creator to the list of users od the circle!
   circleUsersSpotifyIds.push(req.user.spotifyId);
 
